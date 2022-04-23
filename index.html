@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vue-test</title>
+	<link rel="stylesheet" href="demo.css">
+	<link type="image/x-icon" rel="icon" sizes="32x32" href="faviconka.ru_1_115793.ico">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+	<div id="app" class="container pt-5">
+		<div class="card center">
+			<h1 :style="{
+				color: inputValue.length < 5 ? 'SkyBlue' : 'SpringGreen' ,
+				textDecorationLine: inputValue.length < 5 ? 'none' : 'underline',
+				textShadow: inputValue.length < 5 ? '1px 1px 2px black' : '1px 1px 2px black, 0 0 1em green'
+			}">{{ title }} </h1>
+			<form class="form-control" action="#">
+				<input type="text" :placeholder="placeholderString" v-model="inputValue" @keydown.enter="addNewNotes">
+			</form>
+			<button class="btn primary" @click="addNewNotes"> Добавить</button>
+			<hr />
+			<ul class="list" v-if="notes.length !== 0">
+				<li class="list-item" v-for="(note, idx) of notes">
+					<span :class="note.length < 5 ? 'bold' : 'primary'"> {{ note.toUpperCase() }} </span>
+					<button class="btn danger" @click="deleteNote(idx)">Удалить</button>
+				</li>
+				<hr>
+				<strong>Общее количество заметок: {{ notes.length }}</strong> | Двойное количество: {{doubleCountComputed}}
+				<button class="btn danger" @click="resetListNotes">Очистить список</button>
+			</ul>
+			<div v-else>Заметок пока нет. Добавьте первую</div>
+		</div>
+	</div>
+	<script src="https://unpkg.com/vue@next"></script>
+	<script src="app.js" type="text/javascript"></script>
+</body>
+
+</html>
